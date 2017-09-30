@@ -1,3 +1,13 @@
+//-----------------------------------------------
+// Baekjoon_1924_2007년 
+//
+// Problem URL : https://www.acmicpc.net/problem/1924
+// 
+// Coded by PSDent.
+//
+// GitHub : https://github.com/PSDent/algorithm
+//------------------------------------------------
+
 #include <iostream>
 #include <string>
 
