@@ -7,4 +7,6 @@ To Increase my Problem Solving Ability (Usually Baekjoon problem)
  
  ------------Baekjoon------------
  
- 8979_올림픽 - https://www.acmicpc.net/problem/8979 
+ 8979-올림픽 - https://www.acmicpc.net/problem/8979 
+ 
+ 1924-2007년 - https://www.acmicpc.net/problem/1924
