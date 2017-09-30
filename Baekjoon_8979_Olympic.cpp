@@ -1,3 +1,13 @@
+//-----------------------------------------------
+// Baekjoon_8979_Olympic 
+//
+// Problem URL : https://www.acmicpc.net/problem/8979
+// 
+// Coded by PSDent.
+//
+// GitHub : https://github.com/PSDent/algorithm
+//------------------------------------------------
+
 #include <iostream>
 
 using namespace std;
