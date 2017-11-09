@@ -30,9 +30,7 @@ int main()
 	int pay;
 
 	std::cin >> pay;
-
 	Greedy(pay);
-
 	std::cout << cnt;
 
 	return 0;
