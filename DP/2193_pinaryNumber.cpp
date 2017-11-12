@@ -13,7 +13,7 @@ long long int d[90] = { 1 , 1, };
 
 void PinaryNumber()
 {
-	for (int i = 2; i < N; i++)
+	for (int i = 2; i < N; i++)1
 		d[i] = d[i - 2] + d[i - 1];
 
 	return;
