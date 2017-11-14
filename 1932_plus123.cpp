@@ -1,15 +1,16 @@
 //================================================
-// Filename : 9005_plus 1,2,3
+// Filename : 1932_plus 1,2,3
 //
 // Solved by PSDent.
 //
-// https://www.acmicpc.net/problem/9095
+// https://www.acmicpc.net/problem/1932
 //================================================
 #include <iostream>	
 
-short N, DP[251001], arr[251001], max;
-long long int a;
-void Bigger(short a) {
+short N;
+long long DP[251001], arr[251001], max;
+
+void Bigger(long long a) {
 	max = max < a ? a : max;
 	return;
 }
@@ -23,11 +24,11 @@ void Calculate()
 	{
 		for (int j = 0; j < i; j++)
 		{
-			if (arr[index + i ] + DP[index] > DP[index + i])
-				DP[index + i ] = arr[index + i ] + DP[index];
+			if (arr[index + i] + DP[index] > DP[index + i])
+				DP[index + i] = arr[index + i] + DP[index];
 
-			if (arr[index + i  + 1] + DP[index] > DP[index + i  + 1])
-				DP[index + i  + 1] = arr[index + i  + 1] + DP[index];
+			if (arr[index + i + 1] + DP[index] > DP[index + i + 1])
+				DP[index + i + 1] = arr[index + i + 1] + DP[index];
 			index++;
 		}
 	}
