@@ -1,3 +1,10 @@
+//================================================
+// Filename : 6359_DrunkenSangbum.cpp
+//
+// Solved by PSDent.
+//
+// https://www.acmicpc.net/problem/6359
+//================================================
 #include <iostream>
 
 bool room[101] = { false };
