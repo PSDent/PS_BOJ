@@ -5,65 +5,33 @@
 //
 // https://www.acmicpc.net/problem/1149
 //================================================
-
 #include <iostream>
 
-typedef struct {
-	int R, G, B;
-}House;
+int price[1001][4];
+int dp[1001][4] = { 0, 0, 0, 0 };
 
-House house[1000];
-int minCost, N;
-
-void CalCost(int cost, int num, int color)
-{
-	if (cost > minCost || num > N)
-		return;
-
-	if (N == num && cost < minCost)
-	{
-		minCost = cost;
-		return;
-	}
-	else
-	{
-		switch (color) // 1 = R, 2 = G, 3 = B
-		{
-		case 1:
-			CalCost(cost + house[num].G, num + 1, 2);
-			CalCost(cost + house[num].B, num + 1, 3);
-			break;
-		case 2:
-			CalCost(cost + house[num].R, num + 1, 1);
-			CalCost(cost + house[num].B, num + 1, 3);
-			break;
-		case 3:
-			CalCost(cost + house[num].R, num + 1, 1);
-			CalCost(cost + house[num].G, num + 1, 2);
-			break;
-		default:
-			CalCost(house[num].R, num + 1, 1);
-			CalCost(house[num].G, num + 1, 2); 
-			CalCost(house[num].B, num + 1, 3);
-			break;
-		}
-	
-	}
-}
+int Min(int a, int b) { return a < b ? a : b; }
 
 int main()
-{	
-	std::cin >> N;
+{
+	int  N;
 
-	for (int i = 0; i < N; i++)
+	std::cin >> N;
+	
+	for (int i = 1; i <= N; i++)
 	{
-		std::cin >> house[i].R >> house[i].G >> house[i].B;
-		minCost += house[i].R + house[i].G + house[i].B;
+		std::cin >> price[i][1] >> price[i][2] >> price[i][3];
 	}
 
-	CalCost(0, 0, 0);
 
-	std::cout << minCost;
+	for (int i = 1; i <= N; i++)
+	{
+		dp[i][1] = Min(dp[i-1][2], dp[i-1][3]) + price[i][1];
+		dp[i][2] = Min(dp[i-1][1], dp[i-1][3]) + price[i][2];
+		dp[i][3] = Min(dp[i-1][1], dp[i-1][2]) + price[i][3];
+	}
+
+	std::cout << Min(Min(dp[N][1], dp[N][2]), dp[N][3]);
 
 	return 0;
 }
