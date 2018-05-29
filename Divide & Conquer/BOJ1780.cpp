@@ -11,7 +11,6 @@ void CountPaper(int sx, int sy, int size)
 	{
 		for (int j = sx; j < sx + size; j++)
 		{
-			// 밑의 조건이 문제임. 
 			if (paper[i][j] != pivot)
 			{
 				for (int m = 0; m < 3; ++m)
