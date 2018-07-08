@@ -4,32 +4,32 @@ int bamboo[502][502];
 long long int dp[502][502];
 int max = 0, n;
 
-void calDays(int x, int y)
+int Max(int a, int b)
 {
-	if (max < dp[y][x])
-		max = dp[y][x];
+	return a > b ? a : b;
+}
 
-	if (bamboo[y][x - 1] > bamboo[y][x] && dp[y][x] >= dp[y][x - 1]) {
-		dp[y][x - 1] = dp[y][x] + 1;
-		calDays(x - 1, y);
-	}
+int calDays(int x, int y, int days)
+{
+	if (dp[y][x] == 1)
+		return 2;
+	else if (dp[y][x] > 1)
+		return dp[y][x] + 1;
 
-	if (bamboo[y][x + 1] > bamboo[y][x] && dp[y][x] >= dp[y][x + 1]) {
-		dp[y][x + 1] = dp[y][x] + 1;
-		calDays(x + 1, y);
-	}
+	int cnt = 1;
 
-	if (bamboo[y - 1][x] > bamboo[y][x] && dp[y][x] >= dp[y - 1][x]) {
-		dp[y - 1][x] = dp[y][x] + 1;
-		calDays(x, y - 1);
-	}
+	if (x > 1 && bamboo[y][x - 1] > bamboo[y][x])
+		cnt = Max(cnt, calDays(x - 1, y, days + 1));
+	if (x < n && bamboo[y][x + 1] > bamboo[y][x])
+		cnt = Max(cnt, calDays(x + 1, y, days + 1));
+	if (y > 1 && bamboo[y - 1][x] > bamboo[y][x])
+		cnt = Max(cnt, calDays(x, y - 1, days + 1));
+	if (y < n && bamboo[y + 1][x] > bamboo[y][x])
+		cnt = Max(cnt, calDays(x, y + 1, days + 1));
 
-	if (bamboo[y + 1][x] > bamboo[y][x] && dp[y][x] >= dp[y + 1][x]) {
-		dp[y + 1][x] = dp[y][x] + 1;
-		calDays(x, y + 1);
-	}
+	dp[y][x] = cnt;
 
-	return;
+	return cnt + 1;
 }
 
 int main()
@@ -37,13 +37,19 @@ int main()
 	std::cin >> n;
 	for (int i = 1; i <= n; i++)
 		for (int j = 1; j <= n; j++)
+		{
+			dp[i][j] = -1;
 			std::cin >> bamboo[i][j];
+		}
 
 	for (int i = 1; i <= n; i++)
 		for (int j = 1; j <= n; j++)
-			calDays(j, i);
-
-	std::cout << max + 1;
+		{
+			if (dp[i][j] == -1)
+				calDays(j, i, 1);
+			max = Max(max, dp[i][j]);
+		}
+	std::cout << max;
 
 	return 0;
 }
