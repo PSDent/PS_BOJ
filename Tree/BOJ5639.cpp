@@ -1,92 +1,81 @@
 #include <iostream>
-#include <string>
 
-class BinarySearchTree
+struct Node
 {
-private:
-	struct NODE
-	{
-		NODE *left;
-		NODE *right;
-		int val;
-	};
+	int data;
+	Node *lNode;
+	Node *rNode;
+};
 
-	NODE *root;
-	NODE **searchNode;
-
-private:
-	void Search(int val, NODE *node)
+class Tree
+{
+public:
+	Tree()
 	{
-		if (val > node->val)
-		{
-			if (node->right == NULL)
-			{
-				searchNode = &node->right;
-				return;
-			}
-			else
-				Search(val, node->right);
-		}
-		else if (val < node->val)
-		{
-			if (node->left == NULL)
-			{
-				searchNode = &node->left;
-				return;
-			}
-			else
-				Search(val, node->left);
-		}
+		root = NULL;
 	}
 
-public:	
-	BinarySearchTree(int val) 
+	void Insertion(int data)
 	{
-		root = new NODE{ NULL, NULL, val };
-	}
-	~BinarySearchTree() {}
+		if (data == EOF)
+			return;
 
-	void Insertion(int val)
-	{
-		Search(val, root);
+		Node *tNode = new Node;
+		tNode->data = data;
+		tNode->lNode = NULL;
+		tNode->rNode = NULL;
 
-		*searchNode = new NODE{ NULL, NULL, val };
+		Search(&root, tNode);
 	}
 
 	void Traversal()
 	{
-		PostTraversal(root);
+		Post_Traversal(root);
 	}
 
-	void PostTraversal(NODE *node)
+private:
+	void Search(Node **node, Node *insert)
 	{
-		if (node == NULL)
+		if (*node == NULL)
+		{
+			*node = insert;
+			return;
+		}
+
+		if ((*node)->data < insert->data)
+			Search(&(*node)->rNode, insert);
+		else
+			Search(&(*node)->lNode, insert);
+	}
+
+	void Post_Traversal(Node *node)
+	{
+		if(node == NULL)
 			return;
 
-		PostTraversal(node->left);
-		PostTraversal(node->right);
-		std::cout << node->val << '\n';
+		Post_Traversal(node->lNode);
+		Post_Traversal(node->rNode);
+		std::cout << node->data << '\n';
 	}
 
+private:
+	Node *root;
 };
 
 int main()
 {
-	std::string str;
+	Tree tree;
 	int input = 0;
-	BinarySearchTree *tree;
 
-	std::cin >> input;
-
-	tree = new BinarySearchTree(input);
-
-	while (!std::cin.eof())
+	while (true)
 	{
 		std::cin >> input;
-		tree->Insertion(input);
+		if (std::cin.eof())
+			break;
+		tree.Insertion(input);
 	}
 
-	tree->Traversal();
+	tree.Traversal();
 
 	return 0;
 }
