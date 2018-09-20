@@ -10,11 +10,6 @@ int dest[100001];
 std::vector<Point> v[100001];
 std::priority_queue <Point> pq;
 
-bool operator <(Point &left, Point &right)
-{
-	return left.second < right.second ? true : false;
-}
-
 int main()
 {
 	int start, end;
