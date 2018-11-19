@@ -1,40 +1,32 @@
 #include <iostream>
 #include <string>
-#include <ios>
 
 int main()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	std::string word1, word2;
+	std::cin >> word1 >> word2;
 
-	std::string book, keyword;
-	int index = 0;
-	int sIndex = 0;
+	for (int i = 0; i < word1.size(); ++i)
+		if (word1[i] >= '0' && word1[i] <= '9')
+			word1.erase(i--, 1);
 
-	std::cin >> book >> keyword;
-
-	int Cnt = 0;
-	for (int i = 0; i < book.size(); ++i)
+	for (int i = 0; i + word2.size() <= word1.size(); ++i)
 	{
-		if (book[i] == keyword[index]) {
-			++index; ++Cnt;
-		}	
-		else if (book[i] >= '0' && book[i] <= '9') { continue; }
-		else
+		int cnt = 0;
+		for (int j = 0; j < word2.size(); ++j)
 		{
-			index = 0;
-			Cnt = 0;
-			if (book[i] == keyword[0]) --i;
+			if (word1[i + j] == word2[j])
+				++cnt;
+			else
+				break;
 		}
-
-		if (Cnt == keyword.size())
+		if (cnt == word2.size())
 		{
 			std::cout << 1;
 			return 0;
 		}
 	}
-	
+
 	std::cout << 0;
 	return 0;
 }
