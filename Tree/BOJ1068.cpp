@@ -1,59 +1,45 @@
-// 리프 노드 삭제시 반영이 안됨.
 #include <iostream>
 
-int node[50][51];
-int cnt = 0, N, removeNode;
+bool tree[50][50];
+int N, cut;
 
-using namespace std;
-
-void treeTraversal(int v)
+int Traversial(int node)
 {
-	if (v == removeNode)
-		return;
+	bool isLeaf = true;
+	int cnt = 0;
 
-	if (node[v][50] == 0) // 자식노드가 없다면 
+	for (int i = 0; i < N; ++i)
 	{
-		++cnt; // 리프노드 개수 + 1
-		return;
+		if (tree[node][i] && i != cut)
+		{
+			isLeaf = false;
+			cnt += Traversial(i);
+		}
 	}
 
-	for (int i = 0; i < N; i++)
-		if (node[v][i] == 1)
-			treeTraversal(i);
-	return;
-}
-
-void cutLeaf()
-{
-	for (int i = 0; i < N; i++)
-		if (node[i][removeNode] == 1)
-			node[i][50] -= 1;
+	return (isLeaf ? 1 : 0) + cnt;
 }
 
 int main()
 {
-	int temp, root;
-	cin >> N;
+	int root;
+	std::cin >> N;
 
-	for (int i = 0; i < N; i++)
+	int input;
+	for (int i = 0; i < N; ++i)
 	{
-		cin >> temp;
-		if (temp == -1)
-		{
+		std::cin >> input;
+
+		if (input == -1) 
 			root = i;
-			temp = i;
-		}
 		else
-			node[temp][i] = 1;
-		++node[temp][50];
+			tree[input][i] = true;
 	}
-
-	cin >> removeNode;
-	cutLeaf();
-
-	treeTraversal(root);
-
-	cout << cnt;
+	std::cin >> cut;
+	if (root != cut)
+		std::cout << Traversial(root);
+	else
+		std::cout << 0;
 
 	return 0;
 }
