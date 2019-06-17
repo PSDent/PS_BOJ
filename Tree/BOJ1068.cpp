@@ -3,7 +3,7 @@
 bool tree[50][50];
 int N, cut;
 
-int Traversial(int node)
+int Traversal(int node)
 {
 	bool isLeaf = true;
 	int cnt = 0;
@@ -13,7 +13,7 @@ int Traversial(int node)
 		if (tree[node][i] && i != cut)
 		{
 			isLeaf = false;
-			cnt += Traversial(i);
+			cnt += Traversal(i);
 		}
 	}
 
@@ -37,7 +37,7 @@ int main()
 	}
 	std::cin >> cut;
 	if (root != cut)
-		std::cout << Traversial(root);
+		std::cout << Traversal(root);
 	else
 		std::cout << 0;
 
